@@ -104,7 +104,7 @@ function App() {
         {
           grade && name && (
             <>
-              { Number(marks > 50) ? (
+              { Number(marks > 40) ? (
                   <Pass name={name} color={"green"} grade={grade} />
                 ) : (
                   <Fail name={name} color={"green"} grade={grade} />
