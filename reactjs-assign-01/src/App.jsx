@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import './App.css'
 import ProductInfo from './components/ProductInfo'
+import Pass from './components/Pass';
+import Fail from './components/Fail';
 
 function App() {
 
   let [count , setCount] = useState(1)
+
+  let [name, setName] = useState("");
+  let [marks, setMarks] = useState("");
+  let [grade, setGrade] = useState("");
   
   function incr() {
 
@@ -21,6 +27,28 @@ function App() {
     }
     
   }
+
+  function handleMarksChange(e) {
+
+    let value = e.target.value
+    setMarks(value)
+
+    if (value === "") {
+      setGrade("");
+      return;
+    }
+
+    let num = Number(value)
+
+    if (num >= 90) setGrade("A");
+    else if (num >= 80) setGrade("B");
+    else if (num >= 70) setGrade("C");
+    else if (num >= 60) setGrade("D");
+    else if (num >= 50) setGrade("E");
+    else setGrade("F");
+
+  }
+
 
   let products = [
     {
@@ -61,6 +89,35 @@ function App() {
   return(
 
     <div>
+
+      <div>
+        <h2>🎓 Grade & Result Checker</h2>
+
+        Name : <input type="text" placeholder='Enter your name'
+        value={name} onChange={(e) => setName(e.target.value)} />
+        <br /><br />
+
+        Marks : <input type="number" placeholder='Enter your marks'
+        value={marks} onChange={handleMarksChange} />
+        <br /><br />
+
+        {
+          grade && name && (
+            <>
+              { Number(marks > 50) ? (
+                  <Pass name={name} color={"green"} grade={grade} />
+                ) : (
+                  <Fail name={name} color={"green"} grade={grade} />
+                )
+              }
+            </>
+          )
+        }
+
+      </div>
+
+
+      <hr />
 
       {/* Counter App */}
       <div>
